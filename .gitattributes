@@ -1,0 +1,26 @@
+# 统一换行符与文本处理规则，避免不同平台提交时产生"整文件改动"的 diff 噪音
+# 规则：仓库内文本文件统一以 LF 存储，检出到 Windows 时也保持 LF（Python 项目惯例）
+
+* text=auto eol=lf
+
+# 明确按文本处理（含中文，避免被当成二进制）
+*.py        text eol=lf
+*.md        text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.ini       text eol=lf
+*.txt       text eol=lf
+*.json      text eol=lf
+
+# 二进制文件不做换行转换
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.ico       binary
+*.zip       binary
+*.xlsx      binary
+*.docx      binary
+
+# GitHub 语言识别：把 Allure 报告等生成物标记为文档/不参与统计
+reports/**  linguist-generated=true
