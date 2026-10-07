@@ -34,4 +34,9 @@ htmlcov/
 Thumbs.db
 
 # ---------------- 本地留档（不上传 GitHub） ----------------
-sandbox/
+# 说明：sandbox/ 下仅提交 mock_server.py（CI 使用的本地 Mock 服务），
+#       其余为本地调试产物（allure 命令行工具、临时抓取的接口样例数据）。
+sandbox/*
+!sandbox/mock_server.py
+sandbox/tools/
+sandbox/fixtures/

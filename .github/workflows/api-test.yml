@@ -8,8 +8,18 @@ on:
   workflow_dispatch:
 
 jobs:
+  # ------------------------------------------------------------------ #
+  # 主任务：使用仓库内置的本地 Mock 服务执行全部用例，作为 CI 门禁
+  #
+  # 为什么不直接跑线上 Fake Store API？
+  #   GitHub Actions 运行在数据中心 IP 上，访问 https://fakestoreapi.com
+  #   会被 Cloudflare 机器人防护拦截，返回 403 + "Just a moment..." 挑战页，
+  #   属于运行环境限制而非用例缺陷。
+  #   因此 CI 使用 --api-mode=mock 执行同一套用例（共用同一份 api/ 封装与断言），
+  #   由下面的 real-api-check 任务单独、非阻塞地探测线上接口可达性。
+  # ------------------------------------------------------------------ #
   api-test:
-    name: 接口自动化测试
+    name: 接口自动化测试（本地 Mock）
     runs-on: ubuntu-latest
 
     steps:
@@ -27,16 +37,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 运行接口测试
-        run: pytest --alluredir=./reports/allure-results
-
-      - name: 获取 Allure 报告历史数据
-        if: always()
-        uses: actions/checkout@v4
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
+      - name: 运行接口测试（--api-mode=mock）
+        run: pytest --api-mode=mock --alluredir=./reports/allure-results
 
       - name: 生成 Allure 报告
         if: always()
@@ -55,9 +57,45 @@ jobs:
           retention-days: 20
 
       - name: 发布报告到 GitHub Pages
-        if: always() && github.event_name == 'push'
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        continue-on-error: true
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+
+  # ------------------------------------------------------------------ #
+  # 辅助任务：探测线上 Fake Store API 的可达性（非阻塞，不影响 CI 结果）
+  #   目的：即使线上被 Cloudflare 拦截，也能在 Actions 里看到真实情况。
+  # ------------------------------------------------------------------ #
+  real-api-check:
+    name: 线上 API 可达性探测（非阻塞）
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 对线上 API 执行测试（--api-mode=live）
+        run: pytest --api-mode=live --alluredir=./reports/allure-live-results
+
+      - name: 上传线上探测结果
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-live-api
+          path: reports/allure-live-results
+          retention-days: 7

@@ -1,5 +1,10 @@
 # 电商系统接口自动化测试项目（ecommerce_api_test）
 
+[![API Test](https://github.com/xiaoliu2020713-ux/ecommerce-api-test/actions/workflows/api-test.yml/badge.svg)](https://github.com/xiaoliu2020713-ux/ecommerce-api-test/actions/workflows/api-test.yml)
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Pytest](https://img.shields.io/badge/Pytest-7.4%2B-0A9EDC)
+![Allure](https://img.shields.io/badge/Report-Allure-orange)
+
 基于 **Python + Pytest + Requests + Allure** 搭建的接口自动化测试项目，测试对象为公开的
 [Fake Store API](https://fakestoreapi.com/)，覆盖**用户登录、商品查询、购物车**三大核心模块。
 
@@ -85,6 +90,41 @@ allure open ./reports/allure-report
 
 报告中可直接看到每个用例的 **Allure 步骤、完整请求报文、响应报文、状态码与耗时**。
 
+### 5. 测试目标模式（真实 API / 本地 Mock）
+
+```bash
+pytest --api-mode=live     # 默认：访问真实 https://fakestoreapi.com
+pytest --api-mode=mock     # 启动仓库内置的本地 Mock 服务，零外网依赖
+pytest --api-mode=auto     # 先探测真实接口，被拦截/不可达时自动降级为 Mock
+# 等价环境变量写法
+API_MODE=mock pytest
+```
+
+| 模式 | 被测对象 | 适用场景 |
+| --- | --- | --- |
+| `live` | `https://fakestoreapi.com` | 本地开发、验证真实接口契约（默认） |
+| `mock` | 本地 `sandbox/mock_server.py` | 云 CI、内网、无外网环境，执行稳定且秒级完成 |
+| `auto` | 优先真实，必要时降级 | 本地或 CI 通用，兼顾真实性与稳定性 |
+
+> **为什么需要 Mock？**
+> GitHub Actions 等云 CI 运行在数据中心 IP 上，访问 `https://fakestoreapi.com`
+> 会被 Cloudflare 机器人防护拦截，返回 `403` + "Just a moment..." 挑战页，
+> 属于**运行环境限制，而不是用例缺陷**。
+> 为让 CI 稳定可信，工作流主任务使用 `--api-mode=mock` 执行**同一套用例**
+> （共用同一份 `api/` 封装与全部断言），另有一个非阻塞任务用 `--api-mode=live`
+> 探测线上接口可达性。
+
+Mock 服务完全用标准库实现，无需额外依赖，可单独启动用于手工联调：
+
+```bash
+python sandbox/mock_server.py --port 8765
+# 然后另开一个终端
+pytest --base-url=http://127.0.0.1:8765
+```
+
+它复刻了线上接口的行为契约，包括两处「非常规」约定：不存在的商品返回 `200` + 空响应体、
+不存在的购物车返回 `200` + `null`（均不是 404）。
+
 ---
 
 ## 三、覆盖接口列表
@@ -137,8 +177,10 @@ ecommerce_api_test/
 ├── reports/                    # 测试报告输出目录
 │   ├── allure-results/         # Allure 原始结果（运行用例后生成）
 │   └── allure-report/          # Allure HTML 报告（generate 后生成）
+├── sandbox/
+│   └── mock_server.py          # 本地 Mock 服务（标准库实现，供 CI 稳定执行）
 ├── .github/workflows/
-│   └── api-test.yml            # CI：提交后自动跑用例并发布 Allure 报告到 GitHub Pages
+│   └── api-test.yml            # CI：跑用例（mock 门禁 + live 探测）并发布 Allure 报告
 ├── requirements.txt            # 依赖清单
 ├── pytest.ini                  # pytest 配置（addopts / testpaths / markers）
 ├── .gitignore
@@ -154,6 +196,8 @@ ecommerce_api_test/
 3. **fixture 会话复用**：`user_api` / `product_api` / `cart_api` 为 session 级，
    整个测试会话只建一次连接；`login_token` 登录一次即可复用。
 4. **敏感信息脱敏**：日志与 Allure 附件中的 `password`、`token` 字段自动替换为 `***`。
+5. **测试目标可切换**：`--api-mode` 让同一套用例既能打真实 API，也能打本地 Mock，
+   CI 与本地不会因为外网策略产生结果差异。
 
 ---
 
@@ -173,8 +217,9 @@ ecommerce_api_test/
 ## 六、常见问题
 
 **Q1：用例报连接超时 / 无法访问？**
-Fake Store API 是公网服务，请确认网络可访问 `https://fakestoreapi.com`；
-也可通过 `--base-url` 指向自建的同款 Mock 服务。
+Fake Store API 是公网服务，请确认网络可访问 `https://fakestoreapi.com`。
+若在云 CI、内网或代理环境下被 Cloudflare 拦截（返回 `403` + "Just a moment..."），
+请改用本地 Mock：`pytest --api-mode=mock`，或用 `--api-mode=auto` 自动降级。
 
 **Q2：`allure` 命令不存在？**
 需要单独安装 Allure 命令行工具（不是 `allure-pytest` 包）：
@@ -187,15 +232,24 @@ Fake Store API 为模拟服务，写接口不落库，这是预期行为，用�
 **Q4：如何只跑冒烟用例？**
 给关键用例加上 `@pytest.mark.smoke`，然后执行 `pytest -m smoke`。
 
+**Q5：为什么 CI 用 Mock 而本地用真实接口？**
+GitHub Actions 的数据中心 IP 会被 fakestoreapi 的 Cloudflare 防护拦截（403 挑战页），
+若 CI 直接跑 `live`，失败原因是环境而非代码。因此 CI 门禁使用 `--api-mode=mock`
+保证结果稳定可复现，同时保留 `live` 探测任务如实反映线上接口当时的可达性。
+
 ---
 
 ## 七、持续集成（CI）
 
 仓库内置 GitHub Actions 工作流 [`.github/workflows/api-test.yml`](.github/workflows/api-test.yml)：
 
+| 任务 | 内容 | 是否阻塞 CI |
+| --- | --- | --- |
+| `api-test`（主任务） | `pytest --api-mode=mock` 跑全部 18 条用例 → 生成 Allure 报告 → 上传产物 → 发布 GitHub Pages | 是（CI 门禁） |
+| `real-api-check`（辅助任务） | `pytest --api-mode=live` 探测线上 Fake Store API 真实可达性，结果作为产物留存 | 否（`continue-on-error`） |
+
 - 触发时机：`push` / `pull_request` 到 `main`、`master`，以及手动触发（`workflow_dispatch`）；
-- 执行内容：安装依赖 → 运行 `pytest` → 生成 Allure 报告；
-- 结果输出：Allure 报告作为构建产物上传，并在 `push` 时自动发布到 GitHub Pages（`gh-pages` 分支）。
+- 报告发布：`push` 到 `main` 时自动发布到 `gh-pages` 分支，开启 Pages 后可在线查看。
 
 启用 GitHub Pages 后，可直接在线查看最新报告：
 `https://<你的用户名>.github.io/ecommerce-api-test/`
