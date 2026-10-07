@@ -1,0 +1,63 @@
+name: API Test
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  api-test:
+    name: 接口自动化测试
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 运行接口测试
+        run: pytest --alluredir=./reports/allure-results
+
+      - name: 获取 Allure 报告历史数据
+        if: always()
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: 生成 Allure 报告
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        with:
+          allure_results: reports/allure-results
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: 上传 Allure 报告产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-history
+          retention-days: 20
+
+      - name: 发布报告到 GitHub Pages
+        if: always() && github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history

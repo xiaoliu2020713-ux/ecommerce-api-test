@@ -1,0 +1,37 @@
+# ---------------- Python ----------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---------------- 虚拟环境 ----------------
+.venv/
+venv/
+env/
+ENV/
+
+# ---------------- 测试与报告产物 ----------------
+.pytest_cache/
+.cache/
+reports/allure-results/
+reports/allure-report/
+reports/html/
+*.xml
+coverage.xml
+.coverage
+htmlcov/
+
+# ---------------- 编辑器 / 系统 ----------------
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---------------- 本地留档（不上传 GitHub） ----------------
+sandbox/

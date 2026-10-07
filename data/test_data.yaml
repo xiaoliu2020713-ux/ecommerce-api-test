@@ -1,0 +1,100 @@
+# ============================================================
+# 接口自动化测试数据
+# 说明：
+#   * login.valid   -> Fake Store API 官方提供的测试账号
+#   * login.invalid -> 异常场景（错误密码 / 不存在的用户）
+#   * product_ids   -> 参与商品详情校验的商品 ID 列表
+#   * categories    -> Fake Store API 已有的商品分类
+# ============================================================
+
+# ---------------- 登录模块数据 ----------------
+login:
+  # 正常登录场景
+  valid:
+    username: mor_2314
+    password: 83r5^_
+  # 异常登录场景
+  invalid:
+    - case_name: 密码错误
+      username: mor_2314
+      password: wrong_password
+      expected_status: 401
+    - case_name: 用户不存在
+      username: not_exist_user
+      password: 123456
+      expected_status: 401
+
+# tokens 字段用于演示"从数据文件注入 token"的场景，真实 token 由 conftest 动态登录获取
+tokens:
+  mock_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mock.payload.signature"
+
+# ---------------- 用户模块数据 ----------------
+user_ids:
+  - 1
+  - 2
+
+user_api:
+  # 断言使用的期望字段
+  expected_fields:
+    - id
+    - email
+    - username
+    - password
+    - name
+    - address
+    - phone
+
+# ---------------- 商品模块数据 ----------------
+# 商品详情用例参数化使用的商品 ID 列表
+product_ids:
+  - 1
+  - 2
+  - 5
+
+# 按分类查询用例参数化使用的分类
+categories:
+  - electronics
+  - jewelery
+  - "men's clothing"
+  - "women's clothing"
+
+products:
+  # Fake Store API 固定返回 20 个商品
+  expected_total: 20
+  expected_detail_fields:
+    - id
+    - title
+    - price
+    - description
+    - category
+    - image
+  # 价格下限，用于基础数据合理性校验
+  min_price: 0
+
+# ---------------- 购物车模块数据 ----------------
+cart:
+  cart_ids:
+    - 1
+    - 2
+  expected_fields:
+    - id
+    - userId
+    - date
+    - products
+  # 新增购物车用例数据
+  new_cart:
+    user_id: 1
+    products:
+      - productId: 1
+        quantity: 2
+      - productId: 5
+        quantity: 1
+  # 已被占用的购物车 ID（用于校验新 ID 未被重复使用）
+  existing_ids:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
