@@ -7,6 +7,10 @@ on:
     branches: [main, master]
   workflow_dispatch:
 
+# 仓库默认的 workflow 令牌权限为只读，发布 gh-pages 需要写权限
+permissions:
+  contents: write
+
 jobs:
   # ------------------------------------------------------------------ #
   # 主任务：使用仓库内置的本地 Mock 服务执行全部用例，作为 CI 门禁
