@@ -129,6 +129,9 @@ pytest --base-url=http://127.0.0.1:8765
 
 ## 三、覆盖接口列表
 
+> 本表为**接口维度**的覆盖情况（用例列按测试函数名展示）。
+> 全部 **18 条用例**的逐条清单（含参数化取值、优先级、断言要点）见 **[TESTCASES.md](TESTCASES.md)**。
+
 | 模块 | 接口 | 方法 | 用例 | 断言要点 |
 | --- | --- | --- | --- | --- |
 | 用户 | `/auth/login` | POST | `test_login_success` | 状态码 201、返回 JWT token |
@@ -183,6 +186,7 @@ ecommerce_api_test/
 │   └── api-test.yml            # CI：跑用例（mock 门禁 + live 探测）并发布 Allure 报告
 ├── requirements.txt            # 依赖清单
 ├── pytest.ini                  # pytest 配置（addopts / testpaths / markers）
+├── TESTCASES.md                # 全部 18 条测试用例清单（含参数化取值与断言要点）
 ├── .gitignore
 └── README.md
 ```
@@ -201,16 +205,53 @@ ecommerce_api_test/
 
 ---
 
-## 五、测试用例设计
+## 五、测试用例概览
 
-| 类型 | 说明 | 示例 |
+> 📋 **全部 18 条用例的逐条清单见 [TESTCASES.md](TESTCASES.md)**
+> （含参数化取值、优先级、断言要点、函数与用例对应关系、如何只跑某一部分）
+
+**用例总数：18 条**（由 11 个测试函数经参数化展开）
+
+| 模块 | 测试文件 | 用例数 |
+| --- | --- | --- |
+| 用户模块 | `tests/test_user.py` | 5 |
+| 商品模块 | `tests/test_product.py` | 9 |
+| 购物车模块 | `tests/test_cart.py` | 4 |
+| **合计** | | **18** |
+
+**按类型与优先级**
+
+| 维度 | 分布 |
+| --- | --- |
+| ✅ 正向用例 | 14 条（正常业务流程） |
+| ❌ 反向用例 | 4 条（密码错误、用户/商品/购物车不存在） |
+| 🔴 BLOCKER 阻塞级 | 5 条（登录、商品列表、购物车查询×2、加购物车） |
+| 🟠 CRITICAL 严重级 | 10 条 |
+| 🟡 NORMAL 一般级 | 3 条 |
+| 🔥 冒烟用例 | 3 条（`pytest -m smoke`） |
+
+**测试设计手法**
+
+| 手法 | 说明 | 示例 |
 | --- | --- | --- |
 | 正向用例 | 校验正常业务链路 | 登录成功、商品列表、购物车详情 |
 | 反向用例 | 校验异常处理 | 密码错误 401、资源不存在返回空数据 |
-| 参数化用例 | 一份代码覆盖多组数据 | `test_get_user`（用户 1/2）、`test_get_product_detail`（商品 1/2/5）、`test_get_products_by_category`（4 个分类） |
+| 参数化 | 一份代码覆盖多组数据 | `test_get_user`（用户 1/2）、`test_get_product_detail`（商品 1/2/5）、`test_get_products_by_category`（4 个分类）、`test_get_cart`（购物车 1/2） |
+| 接口间一致性 | 交叉校验两个接口的数据是否自洽 | 商品详情与商品列表数据一致；购物车详情能在「该用户的购物车列表」中找到 |
+| 业务规则校验 | 校验数据是否满足业务约束 | 价格 > 0、商品 ID 不重复、分类归属正确、新建购物车 ID 未占用 |
 
-标记（marker）说明：`user`（用户模块）、`product`（商品模块）、`cart`（购物车模块）、
-`api`（自动为全部用例添加）。
+**标记（marker）说明**：`user`（用户模块）、`product`（商品模块）、`cart`（购物车模块）、
+`smoke`（冒烟）、`api`（自动为全部用例添加）。
+
+**常用运行方式**
+
+```bash
+pytest                      # 全部 18 条
+pytest -m user              # 只跑用户模块
+pytest -m smoke             # 只跑冒烟 3 条
+pytest -k "login"           # 按名字模糊匹配
+pytest --collect-only -q    # 只列出用例清单，不执行
+```
 
 ---
 
