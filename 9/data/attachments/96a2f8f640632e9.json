@@ -1,0 +1,18 @@
+{
+  "status_code": 200,
+  "reason": "OK",
+  "elapsed_ms": 0.81,
+  "url": "http://127.0.0.1:46077/products/5",
+  "body": {
+    "id": 5,
+    "title": "Mock Product 5 (electronics)",
+    "price": 37.5,
+    "description": "这是第 5 个用于接口测试的模拟商品。",
+    "category": "electronics",
+    "image": "https://fakestoreapi.com/img/mock-product-5.jpg",
+    "rating": {
+      "rate": 4.0,
+      "count": 105
+    }
+  }
+}

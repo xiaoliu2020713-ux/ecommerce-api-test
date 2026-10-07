@@ -1,0 +1,5 @@
+INFO     ecommerce_api_test:base_api.py:147 --> POST http://127.0.0.1:46077/auth/login params=None body={'username': 'mor_2314', 'password': '***'}
+INFO     ecommerce_api_test:base_api.py:149 <-- POST http://127.0.0.1:46077/auth/login 201 (1 ms)
+INFO     ecommerce_api_test:conftest.py:255 登录成功，token 前缀：eyJhbGciOiJIUzI1NiIs...
+INFO     ecommerce_api_test:base_api.py:147 --> POST http://127.0.0.1:46077/auth/login params=None body={'username': 'mor_2314', 'password': '***'}
+INFO     ecommerce_api_test:base_api.py:149 <-- POST http://127.0.0.1:46077/auth/login 201 (0 ms)

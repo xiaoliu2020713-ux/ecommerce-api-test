@@ -1,0 +1,27 @@
+{
+  "status_code": 200,
+  "reason": "OK",
+  "elapsed_ms": 1.01,
+  "url": "http://127.0.0.1:46077/users/2",
+  "body": {
+    "id": 2,
+    "email": "morrison@gmail.com",
+    "username": "mor_2314",
+    "password": "83r5^_",
+    "name": {
+      "firstname": "david",
+      "lastname": "morrison"
+    },
+    "address": {
+      "geolocation": {
+        "lat": "29.4572",
+        "long": "-164.2990"
+      },
+      "city": "Gotham",
+      "street": "Gotham Street",
+      "number": 1234,
+      "zipcode": "12926-3874"
+    },
+    "phone": "1-570-236-7033"
+  }
+}

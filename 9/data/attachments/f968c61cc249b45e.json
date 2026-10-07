@@ -1,0 +1,68 @@
+{
+  "status_code": 200,
+  "reason": "OK",
+  "elapsed_ms": 1.05,
+  "url": "http://127.0.0.1:46077/products/category/men's%20clothing",
+  "body": [
+    {
+      "id": 3,
+      "title": "Mock Product 3 (men's clothing)",
+      "price": 26.5,
+      "description": "这是第 3 个用于接口测试的模拟商品。",
+      "category": "men's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-3.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 103
+      }
+    },
+    {
+      "id": 7,
+      "title": "Mock Product 7 (men's clothing)",
+      "price": 48.5,
+      "description": "这是第 7 个用于接口测试的模拟商品。",
+      "category": "men's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-7.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 107
+      }
+    },
+    {
+      "id": 11,
+      "title": "Mock Product 11 (men's clothing)",
+      "price": 70.5,
+      "description": "这是第 11 个用于接口测试的模拟商品。",
+      "category": "men's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-11.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 111
+      }
+    },
+    {
+      "id": 15,
+      "title": "Mock Product 15 (men's clothing)",
+      "price": 92.5,
+      "description": "这是第 15 个用于接口测试的模拟商品。",
+      "category": "men's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-15.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 115
+      }
+    },
+    {
+      "id": 19,
+      "title": "Mock Product 19 (men's clothing)",
+      "price": 114.5,
+      "description": "这是第 19 个用于接口测试的模拟商品。",
+      "category": "men's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-19.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 119
+      }
+    }
+  ]
+}

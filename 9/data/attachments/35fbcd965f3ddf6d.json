@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "url": "http://127.0.0.1:46077/products/category/men's clothing",
+  "params": null,
+  "headers": {
+    "User-Agent": "ecommerce-api-test/1.0 (+pytest+requests)",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json"
+  },
+  "extra_headers": {},
+  "body": null
+}

@@ -1,0 +1,3 @@
+请求体: user_id=1, products=[{'productId': 1, 'quantity': 2}, {'productId': 5, 'quantity': 1}]
+新购物车 ID: 8
+商品总数量: 3

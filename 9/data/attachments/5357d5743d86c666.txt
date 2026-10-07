@@ -1,0 +1,4 @@
+product_id=2
+title=Mock Product 2 (jewelery)
+price=21.0
+category=jewelery

@@ -1,0 +1,4 @@
+INFO     ecommerce_api_test:base_api.py:147 --> GET http://127.0.0.1:46077/products/2 params=None body={}
+INFO     ecommerce_api_test:base_api.py:149 <-- GET http://127.0.0.1:46077/products/2 200 (0 ms)
+INFO     ecommerce_api_test:base_api.py:147 --> GET http://127.0.0.1:46077/products params=None body={}
+INFO     ecommerce_api_test:base_api.py:149 <-- GET http://127.0.0.1:46077/products 200 (0 ms)

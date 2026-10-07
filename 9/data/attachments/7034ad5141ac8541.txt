@@ -1,0 +1,3 @@
+category=women's clothing
+商品数量=5
+商品 ID=[4, 8, 12, 16, 20]

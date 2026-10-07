@@ -1,0 +1,4 @@
+INFO     ecommerce_api_test:base_api.py:147 --> GET http://127.0.0.1:46077/products/category/electronics params=None body={}
+INFO     ecommerce_api_test:base_api.py:149 <-- GET http://127.0.0.1:46077/products/category/electronics 200 (0 ms)
+INFO     ecommerce_api_test:base_api.py:147 --> GET http://127.0.0.1:46077/products/categories params=None body={}
+INFO     ecommerce_api_test:base_api.py:149 <-- GET http://127.0.0.1:46077/products/categories 200 (0 ms)

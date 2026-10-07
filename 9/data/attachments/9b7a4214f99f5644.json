@@ -1,0 +1,68 @@
+{
+  "status_code": 200,
+  "reason": "OK",
+  "elapsed_ms": 0.91,
+  "url": "http://127.0.0.1:46077/products/category/jewelery",
+  "body": [
+    {
+      "id": 2,
+      "title": "Mock Product 2 (jewelery)",
+      "price": 21.0,
+      "description": "这是第 2 个用于接口测试的模拟商品。",
+      "category": "jewelery",
+      "image": "https://fakestoreapi.com/img/mock-product-2.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 102
+      }
+    },
+    {
+      "id": 6,
+      "title": "Mock Product 6 (jewelery)",
+      "price": 43.0,
+      "description": "这是第 6 个用于接口测试的模拟商品。",
+      "category": "jewelery",
+      "image": "https://fakestoreapi.com/img/mock-product-6.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 106
+      }
+    },
+    {
+      "id": 10,
+      "title": "Mock Product 10 (jewelery)",
+      "price": 65.0,
+      "description": "这是第 10 个用于接口测试的模拟商品。",
+      "category": "jewelery",
+      "image": "https://fakestoreapi.com/img/mock-product-10.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 110
+      }
+    },
+    {
+      "id": 14,
+      "title": "Mock Product 14 (jewelery)",
+      "price": 87.0,
+      "description": "这是第 14 个用于接口测试的模拟商品。",
+      "category": "jewelery",
+      "image": "https://fakestoreapi.com/img/mock-product-14.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 114
+      }
+    },
+    {
+      "id": 18,
+      "title": "Mock Product 18 (jewelery)",
+      "price": 109.0,
+      "description": "这是第 18 个用于接口测试的模拟商品。",
+      "category": "jewelery",
+      "image": "https://fakestoreapi.com/img/mock-product-18.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 118
+      }
+    }
+  ]
+}

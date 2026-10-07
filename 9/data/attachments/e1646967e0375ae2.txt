@@ -1,0 +1,3 @@
+category=men's clothing
+商品数量=5
+商品 ID=[3, 7, 11, 15, 19]

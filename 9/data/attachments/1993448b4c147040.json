@@ -1,0 +1,68 @@
+{
+  "status_code": 200,
+  "reason": "OK",
+  "elapsed_ms": 1.02,
+  "url": "http://127.0.0.1:46077/products/category/women's%20clothing",
+  "body": [
+    {
+      "id": 4,
+      "title": "Mock Product 4 (women's clothing)",
+      "price": 32.0,
+      "description": "这是第 4 个用于接口测试的模拟商品。",
+      "category": "women's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-4.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 104
+      }
+    },
+    {
+      "id": 8,
+      "title": "Mock Product 8 (women's clothing)",
+      "price": 54.0,
+      "description": "这是第 8 个用于接口测试的模拟商品。",
+      "category": "women's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-8.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 108
+      }
+    },
+    {
+      "id": 12,
+      "title": "Mock Product 12 (women's clothing)",
+      "price": 76.0,
+      "description": "这是第 12 个用于接口测试的模拟商品。",
+      "category": "women's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-12.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 112
+      }
+    },
+    {
+      "id": 16,
+      "title": "Mock Product 16 (women's clothing)",
+      "price": 98.0,
+      "description": "这是第 16 个用于接口测试的模拟商品。",
+      "category": "women's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-16.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 116
+      }
+    },
+    {
+      "id": 20,
+      "title": "Mock Product 20 (women's clothing)",
+      "price": 120.0,
+      "description": "这是第 20 个用于接口测试的模拟商品。",
+      "category": "women's clothing",
+      "image": "https://fakestoreapi.com/img/mock-product-20.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 120
+      }
+    }
+  ]
+}

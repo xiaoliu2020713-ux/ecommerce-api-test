@@ -1,0 +1,15 @@
+{
+  "method": "GET",
+  "url": "http://127.0.0.1:46077/users/1",
+  "params": null,
+  "headers": {
+    "User-Agent": "ecommerce-api-test/1.0 (+pytest+requests)",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "Authorization": "***"
+  },
+  "extra_headers": {},
+  "body": null
+}

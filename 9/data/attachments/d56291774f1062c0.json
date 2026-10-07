@@ -1,0 +1,21 @@
+{
+  "status_code": 201,
+  "reason": "Created",
+  "elapsed_ms": 0.83,
+  "url": "http://127.0.0.1:46077/carts",
+  "body": {
+    "id": 8,
+    "userId": 1,
+    "date": "2026-10-07T12:32:56.000Z",
+    "products": [
+      {
+        "productId": 1,
+        "quantity": 2
+      },
+      {
+        "productId": 5,
+        "quantity": 1
+      }
+    ]
+  }
+}

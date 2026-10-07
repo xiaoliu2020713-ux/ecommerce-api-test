@@ -1,0 +1,2 @@
+INFO     ecommerce_api_test:base_api.py:147 --> POST http://127.0.0.1:46077/carts params=None body={'userId': 1, 'date': '2026-10-07T12:32:56.000Z', 'products': [{'productId': 1, 'quantity': 2}, {'productId': 5, 'quantity': 1}]}
+INFO     ecommerce_api_test:base_api.py:149 <-- POST http://127.0.0.1:46077/carts 201 (0 ms)

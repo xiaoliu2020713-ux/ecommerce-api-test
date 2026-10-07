@@ -1,0 +1,2 @@
+INFO     ecommerce_api_test:base_api.py:147 --> POST http://127.0.0.1:46077/auth/login params=None body={'username': 'not_exist_user', 'password': '***'}
+INFO     ecommerce_api_test:base_api.py:149 <-- POST http://127.0.0.1:46077/auth/login 401 (0 ms)

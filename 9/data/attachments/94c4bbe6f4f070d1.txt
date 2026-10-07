@@ -1,0 +1,4 @@
+product_id=5
+title=Mock Product 5 (electronics)
+price=37.5
+category=electronics

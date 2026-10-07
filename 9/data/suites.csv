@@ -1,0 +1,22 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"调用 POST /carts 为指定用户新增购物车，校验状态码 201（兼容 200）、返回新的购物车 ID、userId 与商品明细与请求一致、明细数量求和正确。
+说明：Fake Store API 为模拟服务，写操作不会真正落库，因此用例只校验创建结果本身，不校验后续 GET 的持久化结果。","3","添加购物车：POST /carts 新增购物车并回显商品明细","tests","2026-10-07","passed","2026-10-07","TestCart","test_cart","",""
+"参数化调用 GET /products/category/{category}，校验状态码 200、返回非空列表且每个商品的 category 与请求分类一致。","7","按分类查询商品：GET /products/category/women's clothing 返回该分类商品","tests","2026-10-07","passed","2026-10-07","TestProduct","test_product","",""
+"参数化调用 GET /products/category/{category}，校验状态码 200、返回非空列表且每个商品的 category 与请求分类一致。","6","按分类查询商品：GET /products/category/jewelery 返回该分类商品","tests","2026-10-07","passed","2026-10-07","TestProduct","test_product","",""
+"参数化调用 GET /products/{id}，校验状态码 200、返回的商品 ID 与请求一致、关键字段完整且标题非空。","6","查询商品详情：GET /products/{id} 返回指定商品","tests","2026-10-07","passed","2026-10-07","TestProduct","test_product","",""
+"反向用例：用户名不存在登录失败。","3","异常登录：不存在的用户名应返回 401","tests","2026-10-07","passed","2026-10-07","TestUser","test_user","",""
+"使用错误密码调用 POST /auth/login，校验服务端拒绝登录并返回 401，且响应中不包含可用 token。","3","异常登录：错误的密码应返回 401","tests","2026-10-07","passed","2026-10-07","TestUser","test_user","",""
+"参数化调用 GET /carts/{id}，校验状态码 200、购物车 ID 与请求一致、字段完整、商品明细结构合法且数量为正整数。","6","查询购物车：GET /carts/{id} 返回购物车详情","tests","2026-10-07","passed","2026-10-07","TestCart","test_cart","",""
+"参数化调用 GET /products/category/{category}，校验状态码 200、返回非空列表且每个商品的 category 与请求分类一致。","6","按分类查询商品：GET /products/category/electronics 返回该分类商品","tests","2026-10-07","passed","2026-10-07","TestProduct","test_product","",""
+"参数化调用 GET /carts/{id}，校验状态码 200、购物车 ID 与请求一致、字段完整、商品明细结构合法且数量为正整数。","6","查询购物车：GET /carts/{id} 返回购物车详情","tests","2026-10-07","passed","2026-10-07","TestCart","test_cart","",""
+"参数化调用 GET /products/category/{category}，校验状态码 200、返回非空列表且每个商品的 category 与请求分类一致。","7","按分类查询商品：GET /products/category/men's clothing 返回该分类商品","tests","2026-10-07","passed","2026-10-07","TestProduct","test_product","",""
+"请求不存在的商品 ID。
+说明：Fake Store API 对不存在的商品并不返回 404，而是返回 **200 + 空响应体**，用例按该服务端实际契约断言：不报错、不返回商品数据，并校验辅助方法 get_product_or_none 归一化为 None。","7","异常场景：查询不存在的商品返回空数据","tests","2026-10-07","passed","2026-10-07","TestProduct","test_product","",""
+"调用 POST /auth/login，使用 Fake Store API 官方测试账号 mor_2314 登录，校验状态码 201、响应包含 token 且 token 为合法 JWT 格式。","4","正常登录：使用官方测试账号登录成功并返回 token","tests","2026-10-07","passed","2026-10-07","TestUser","test_user","",""
+"参数化调用 GET /products/{id}，校验状态码 200、返回的商品 ID 与请求一致、关键字段完整且标题非空。","6","查询商品详情：GET /products/{id} 返回指定商品","tests","2026-10-07","passed","2026-10-07","TestProduct","test_product","",""
+"调用 GET /products 查询全部商品，校验状态码 200、返回列表长度为 20、每个商品都包含必要字段且价格大于 0。","4","查询全部商品：GET /products 返回完整商品列表","tests","2026-10-07","passed","2026-10-07","TestProduct","test_product","",""
+"调用 GET /users/{id} 查询指定用户，校验状态码 200、返回的 id 与请求一致、字段完整且邮箱格式合法。","4","查询用户详情：GET /users/{id} 返回正确的用户信息","tests","2026-10-07","passed","2026-10-07","TestUser","test_user","",""
+"参数化调用 GET /products/{id}，校验状态码 200、返回的商品 ID 与请求一致、关键字段完整且标题非空。","6","查询商品详情：GET /products/{id} 返回指定商品","tests","2026-10-07","passed","2026-10-07","TestProduct","test_product","",""
+"请求不存在的购物车 ID。
+说明：Fake Store API 对不存在的购物车并不返回 404，而是返回 **200 + null**，用例按该服务端实际契约断言：不报错、不返回购物车数据，并校验辅助方法 get_cart_or_none 归一化为 None。","5","异常场景：查询不存在的购物车返回空数据","tests","2026-10-07","passed","2026-10-07","TestCart","test_cart","",""
+"调用 GET /users/{id} 查询指定用户，校验状态码 200、返回的 id 与请求一致、字段完整且邮箱格式合法。","4","查询用户详情：GET /users/{id} 返回正确的用户信息","tests","2026-10-07","passed","2026-10-07","TestUser","test_user","",""

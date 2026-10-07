@@ -1,0 +1,3 @@
+cart_id=2
+user_id=1
+商品明细=[{'productId': 2, 'quantity': 2}, {'productId': 3, 'quantity': 1}]

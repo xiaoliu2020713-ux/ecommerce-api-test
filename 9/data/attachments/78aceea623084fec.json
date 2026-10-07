@@ -1,0 +1,18 @@
+{
+  "status_code": 200,
+  "reason": "OK",
+  "elapsed_ms": 0.79,
+  "url": "http://127.0.0.1:46077/products/2",
+  "body": {
+    "id": 2,
+    "title": "Mock Product 2 (jewelery)",
+    "price": 21.0,
+    "description": "这是第 2 个用于接口测试的模拟商品。",
+    "category": "jewelery",
+    "image": "https://fakestoreapi.com/img/mock-product-2.jpg",
+    "rating": {
+      "rate": 4.0,
+      "count": 102
+    }
+  }
+}
