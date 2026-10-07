@@ -64,6 +64,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+          # 首次发布时 gh-pages 分支不存在/历史冲突会导致 git push 失败，用强制孤立提交解决；
+          # keep_files 保留 Allure 的历史趋势数据（history 目录）。
+          force_orphan: true
+          keep_files: true
 
   # ------------------------------------------------------------------ #
   # 辅助任务：探测线上 Fake Store API 的可达性（非阻塞，不影响 CI 结果）
