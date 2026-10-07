@@ -251,8 +251,12 @@ GitHub Actions 的数据中心 IP 会被 fakestoreapi 的 Cloudflare 防护拦�
 - 触发时机：`push` / `pull_request` 到 `main`、`master`，以及手动触发（`workflow_dispatch`）；
 - 报告发布：`push` 到 `main` 时自动发布到 `gh-pages` 分支，开启 Pages 后可在线查看。
 
-启用 GitHub Pages 后，可直接在线查看最新报告：
-`https://<你的用户名>.github.io/ecommerce-api-test/`
+**在线查看最新 Allure 报告（本仓库已开启 Pages）：**
+
+<https://xiaoliu2020713-ux.github.io/ecommerce-api-test/>
+
+> 说明：Pages 会自动把站点根路径重定向到最新的构建目录（如 `/4/index.html`），
+> 直接访问上面的地址即可；每次构建保留最近 20 次报告，历史趋势在图表的 Trend 中查看。
 
 本地等价命令：
 
